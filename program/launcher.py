@@ -59,7 +59,7 @@ class ToolLauncher:
         # 标题
         title_label = tk.Label(
             title_container,
-            text="WeKit",
+            text="Centisky",
             font=("Microsoft YaHei UI", 18, "bold"),
             bg=self.colors['bg_card'],
             fg=self.colors['text_primary']
@@ -195,8 +195,20 @@ class ToolLauncher:
         footer_text.insert("1.0", "Developed by @Benji-Xu with Windsurf", "center")
         footer_text.config(state=tk.DISABLED)
         
-        # 只让Windsurf部分可点击
-        footer_text.tag_add("windsurf", "1.24", "1.32")
+        # 让@Benji-Xu和Windsurf部分可点击
+        footer_text.tag_add("github", "1.12", "1.21")
+        footer_text.tag_config("github", foreground=self.colors['text_muted'])
+        footer_text.tag_bind("github", "<Button-1>", lambda e: self.open_github())
+        footer_text.tag_bind("github", "<Enter>", lambda e: [
+            footer_text.tag_config("github", foreground=self.colors['primary'], underline=True),
+            footer_text.config(cursor="hand2")
+        ])
+        footer_text.tag_bind("github", "<Leave>", lambda e: [
+            footer_text.tag_config("github", foreground=self.colors['text_muted'], underline=False),
+            footer_text.config(cursor="arrow")
+        ])
+        
+        footer_text.tag_add("windsurf", "1.27", "1.35")
         footer_text.tag_config("windsurf", foreground=self.colors['text_muted'])
         footer_text.tag_bind("windsurf", "<Button-1>", lambda e: self.open_windsurf())
         footer_text.tag_bind("windsurf", "<Enter>", lambda e: [
