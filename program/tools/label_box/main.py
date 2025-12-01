@@ -39,7 +39,7 @@ except Exception as e:
 class IntegratedApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Workit - 标签箱唛处理工具")
+        self.root.title("Centisky - 标签箱唛处理工具")
         self.root.geometry("1100x750")
         self.root.resizable(True, True)
         

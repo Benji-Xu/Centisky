@@ -22,7 +22,7 @@ from folder_multi_select import select_folders
 class ImageProcessorApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Workit - 图片处理工具")
+        self.root.title("Centisky - 图片处理工具")
         self.root.geometry("1200x700")
         
         # 不设置窗口图标（用户不需要）

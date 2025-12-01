@@ -104,7 +104,7 @@ except:
 class JZTAnalyzerApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Workit - 京准通数据分析工具")
+        self.root.title("Centisky - 京准通数据分析工具")
         self.root.geometry("1100x750")
         self.root.resizable(True, True)
         

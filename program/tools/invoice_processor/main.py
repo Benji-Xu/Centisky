@@ -20,7 +20,7 @@ from theme_toggle import ThemeToggleButton
 class InvoiceProcessorApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Workit - 开票信息处理工具")
+        self.root.title("Centisky - 开票信息处理工具")
         self.root.geometry("900x600")
         
         # 不设置窗口图标（用户不需要）
