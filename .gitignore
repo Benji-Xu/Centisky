@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist-python/
+build-python/
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# PyInstaller
+program/build/
+program/dist/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+program/log/
+
+# Temporary files
+*.tmp
+*.bak
+*.cache
+
+# Release files
+*.zip
+
+# FFmpeg binaries
+program/ffmpeg/*.exe
