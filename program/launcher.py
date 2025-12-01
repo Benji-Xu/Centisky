@@ -196,7 +196,7 @@ class ToolLauncher:
         footer_text.config(state=tk.DISABLED)
         
         # 让@Benji-Xu和Windsurf部分可点击
-        footer_text.tag_add("github", "1.12", "1.21")
+        footer_text.tag_add("github", "1.13", "1.22")
         footer_text.tag_config("github", foreground=self.colors['text_muted'])
         footer_text.tag_bind("github", "<Button-1>", lambda e: self.open_github())
         footer_text.tag_bind("github", "<Enter>", lambda e: [
@@ -208,7 +208,7 @@ class ToolLauncher:
             footer_text.config(cursor="arrow")
         ])
         
-        footer_text.tag_add("windsurf", "1.27", "1.35")
+        footer_text.tag_add("windsurf", "1.28", "1.36")
         footer_text.tag_config("windsurf", foreground=self.colors['text_muted'])
         footer_text.tag_bind("windsurf", "<Button-1>", lambda e: self.open_windsurf())
         footer_text.tag_bind("windsurf", "<Enter>", lambda e: [
