@@ -114,59 +114,10 @@ class IntegratedApp:
     def create_widgets(self):
         """创建UI组件"""
         
-        # 顶部标题区域（统一布局）
-        header_frame = tk.Frame(self.root, bg=self.colors['bg_main'], height=80)
-        header_frame.pack(fill=tk.X)
-        header_frame.pack_propagate(False)
-
-        # 左侧返回按钮
-        back_btn = tk.Label(
-            header_frame,
-            text="< 返回首页",
-            font=("Microsoft YaHei UI", 10),
-            bg=self.colors['bg_main'],
-            fg=self.colors['text_muted'],
-            cursor="hand2"
-        )
-        back_btn.place(relx=0.0, rely=0.61, x=40, anchor='w')
-        back_btn.bind("<Button-1>", lambda e: self.back_to_launcher())
-        back_btn.bind("<Enter>", lambda e: back_btn.config(fg=self.colors['text_primary']))
-        back_btn.bind("<Leave>", lambda e: back_btn.config(fg=self.colors['text_muted']))
-
-        # 右侧主题切换按钮（自定义日月图标）
-        theme_btn = ThemeToggleButton(header_frame, command=self.toggle_theme)
-        theme_btn.place(relx=1.0, rely=0.58, x=-40, anchor='e')
-
-        # 右上角帮助按钮（?）
-        help_btn = tk.Label(
-            header_frame,
-            text="?",
-            font=("Microsoft YaHei UI", 13, "bold"),
-            bg=self.colors['bg_main'],
-            fg=self.colors['text_muted'],
-            cursor="hand2"
-        )
-        help_btn.place(relx=1.0, rely=0.61, x=-80, anchor='e')
-        help_btn.bind("<Button-1>", lambda e: self.open_help())
-        help_btn.bind("<Enter>", lambda e: help_btn.config(fg=self.colors['text_primary']))
-        help_btn.bind("<Leave>", lambda e: help_btn.config(fg=self.colors['text_muted']))
-
-        # 中间标题
-        title_container = tk.Frame(header_frame, bg=self.colors['bg_main'])
-        title_container.place(relx=0.5, rely=0.61, anchor='center')
-        
-        title_label = tk.Label(
-            title_container,
-            text="标签箱唛处理工具",
-            font=("Microsoft YaHei UI", 24, "bold"),
-            bg=self.colors['bg_main'],
-            fg=self.colors['text_primary']
-        )
-        title_label.pack()
-        
         # 主内容区域
-        content_frame = tk.Frame(self.root, bg=self.colors['bg_main'])
-        content_frame.pack(fill=tk.BOTH, expand=True, padx=60, pady=35)
+        self.content_frame = tk.Frame(self.root, bg=self.colors['bg_main'])
+        self.content_frame.pack(fill=tk.BOTH, expand=True, padx=40, pady=35)
+        content_frame = self.content_frame
         
         # 文件选择卡片
         file_card_container, file_card = self.create_card(content_frame)
@@ -178,7 +129,7 @@ class IntegratedApp:
         
         tk.Label(
             title_row,
-            text="选择Excel文件",
+            text="选择 Excel 文件",
             font=("Microsoft YaHei UI", 14, "bold"),
             bg=self.colors['bg_card'],
             fg=self.colors['text_primary']
@@ -227,40 +178,40 @@ class IntegratedApp:
         button_frame = tk.Frame(file_card, bg=self.colors['bg_card'])
         button_frame.pack(fill=tk.X)
         
-        # 选择文件按钮（Razer 3D拟物化）
+        # 选择文件按钮（统一风格）
         self.select_btn = UnifiedButton(
             button_frame,
             text="选择 Excel 文件",
             command=self.select_file,
             style="primary",
-            width=140,
+            width=130,
             height=40
         )
-        self.select_btn.pack(side=tk.LEFT, padx=(0, 10))
+        self.select_btn.pack(side=tk.LEFT, padx=(0, 8), pady=(0, 8))
         
-        # 开始处理按钮（Razer 3D拟物化）
+        # 开始处理按钮（统一风格）
         self.process_btn = UnifiedButton(
             button_frame,
             text="开始处理",
             command=self.process_file,
             style="primary",
-            width=120,
+            width=105,
             height=40,
             state="disabled"
         )
-        self.process_btn.pack(side=tk.LEFT, padx=(0, 10))
+        self.process_btn.pack(side=tk.LEFT, padx=(0, 10), pady=(0, 8))
         
-        # 清除按钮（Razer 3D拟物化）
+        # 清除按钮（统一风格）
         self.clear_btn = UnifiedButton(
             button_frame,
             text="清除",
             command=self.clear_file,
             style="secondary",
-            width=90,
+            width=75,
             height=40,
             state="disabled"
         )
-        self.clear_btn.pack(side=tk.LEFT, padx=(0, 10))
+        self.clear_btn.pack(side=tk.LEFT, padx=(0, 8), pady=(0, 8))
         
         # 导入玩具标签按钮（居右显示）
         self.import_toy_btn = UnifiedButton(
@@ -271,7 +222,7 @@ class IntegratedApp:
             width=110,
             height=40
         )
-        self.import_toy_btn.pack(side=tk.RIGHT, padx=(10, 0))
+        self.import_toy_btn.pack(side=tk.RIGHT, padx=(10, 0), pady=(0, 8))
         
         # 导入3C标签按钮（居右显示）
         self.import_3c_btn = UnifiedButton(
@@ -282,7 +233,7 @@ class IntegratedApp:
             width=110,
             height=40
         )
-        self.import_3c_btn.pack(side=tk.RIGHT)
+        self.import_3c_btn.pack(side=tk.RIGHT, pady=(0, 8))
         
         # 处理选项卡片
         options_card_container, options_card = self.create_card(content_frame)
@@ -294,7 +245,7 @@ class IntegratedApp:
             font=("Microsoft YaHei UI", 14, "bold"),
             bg=self.colors['bg_card'],
             fg=self.colors['text_primary']
-        ).pack(anchor=tk.W, pady=(0, 15))
+        ).pack(anchor='w', pady=(0, 15))
         
         # 选项容器
         options_container = tk.Frame(options_card, bg=self.colors['bg_card'])
@@ -487,46 +438,17 @@ class IntegratedApp:
         )
         self.view_btn.pack(side=tk.LEFT, padx=(0, 10))
         
-        
-        
-        
         # 存储选中的PLD文件路径
         self.selected_pld_file = None
         
         # 启动时加载螺旋桨映射
         self.load_propeller_mappings()
-
-        # 进度条卡片
-        progress_card_container, progress_card = self.create_card(content_frame)
-        progress_card_container.pack(fill=tk.X, pady=(0, 18))
         
-        tk.Label(
-            progress_card,
-            text="处理进度",
-            font=("Microsoft YaHei UI", 14, "bold"),
-            bg=self.colors['bg_card'],
-            fg=self.colors['text_primary']
-        ).pack(anchor=tk.W, pady=(0, 12))
-        
-        self.progress_label = tk.Label(
-            progress_card,
-            text="等待开始...",
-            font=("Microsoft YaHei UI", 10),
-            bg=self.colors['bg_card'],
-            fg=self.colors['text_muted'],
-            anchor=tk.W
-        )
-        self.progress_label.pack(fill=tk.X, pady=(0, 8))
-        
-        self.progress_bar = ttk.Progressbar(
-            progress_card,
-            mode='determinate',
-            maximum=100,
-            style="Modern.Horizontal.TProgressbar",
-            length=400
-        )
-        self.progress_bar.pack(fill=tk.X)
-        self.progress_bar['value'] = 0
+        # 进度条卡片容器（初始为空，处理时动态创建）
+        self.progress_card_container = None
+        self.progress_card = None
+        self.progress_label = None
+        self.progress_bar = None
     
     def load_propeller_mappings(self):
         """启动时加载螺旋桨映射"""
@@ -941,8 +863,14 @@ class IntegratedApp:
         self.process_btn.config_state("disabled")
         self.clear_btn.config_state("disabled")
         self.log_buffer.clear()  # 清空日志缓冲区
-        self.progress_label.config(text="等待开始...")
-        self.progress_bar['value'] = 0
+        
+        # 删除进度条卡片
+        if self.progress_card_container:
+            self.progress_card_container.destroy()
+            self.progress_card_container = None
+            self.progress_card = None
+            self.progress_label = None
+            self.progress_bar = None
     
     def log_message(self, message):
         """添加日志消息"""
@@ -1011,8 +939,50 @@ class IntegratedApp:
         self.process_btn.config_state("disabled")
         self.clear_btn.config_state("disabled")
         
-        self.progress_label.config(text="正在处理中...")
-        self.progress_bar['value'] = 0
+        # 动态创建进度条卡片（如果还不存在）
+        if not self.progress_card_container:
+            # 获取content_frame（需要保存为实例变量）
+            if not hasattr(self, 'content_frame'):
+                # 如果没有保存content_frame，则创建进度条在root下
+                self.progress_card_container = tk.Frame(self.root, bg=self.colors['bg_main'])
+                self.progress_card_container.pack(fill=tk.X, padx=60, pady=(0, 35))
+            else:
+                self.progress_card_container = tk.Frame(self.content_frame, bg=self.colors['bg_main'])
+                self.progress_card_container.pack(fill=tk.X, pady=(18, 0))
+            
+            card_3d = Razer3DCard(self.progress_card_container)
+            self.progress_card = card_3d.get_content()
+            
+            tk.Label(
+                self.progress_card,
+                text="处理进度",
+                font=("Microsoft YaHei UI", 14, "bold"),
+                bg=self.colors['bg_card'],
+                fg=self.colors['text_primary']
+            ).pack(anchor=tk.W, pady=(0, 12))
+            
+            self.progress_label = tk.Label(
+                self.progress_card,
+                text="正在处理中...",
+                font=("Microsoft YaHei UI", 10),
+                bg=self.colors['bg_card'],
+                fg=self.colors['text_muted'],
+                anchor=tk.W
+            )
+            self.progress_label.pack(fill=tk.X, pady=(0, 8))
+            
+            self.progress_bar = ttk.Progressbar(
+                self.progress_card,
+                mode='determinate',
+                maximum=100,
+                style="Modern.Horizontal.TProgressbar",
+                length=400
+            )
+            self.progress_bar.pack(fill=tk.X)
+            self.progress_bar['value'] = 0
+        else:
+            self.progress_label.config(text="正在处理中...")
+            self.progress_bar['value'] = 0
         
         thread = threading.Thread(target=self._do_process, daemon=True)
         thread.start()

@@ -1,6 +1,6 @@
 """
-Razer风格拟物化UI组件
-黑色为主，绿色为辅，立体真实的按键效果
+iOS 18风格拟物化UI组件
+黑色为主，蓝色为辅，立体真实的按键效果
 """
 import tkinter as tk
 from tkinter import ttk
@@ -301,7 +301,7 @@ class Razer3DButton(tk.Canvas):
 
 class Razer3DCard(tk.Frame):
     """
-    Razer简约卡片（扁平化，细边框）
+    iOS 18简约卡片（扁平化，细边框）
     - 1px细边框
     - 微妙阴影
     - 简洁现代
@@ -391,10 +391,10 @@ class Razer3DInput(tk.Frame):
 
 class Razer3DRadio(tk.Frame):
     """
-    Razer拟物化单选框
+    iOS 18拟物化单选框
     - 3D凸起效果（未选中）
     - 3D凹陷效果（选中）
-    - 绿色发光
+    - 蓝色发光
     """
     def __init__(self, parent, text, variable, value, **kwargs):
         self.colors = get_colors()
@@ -470,10 +470,10 @@ class Razer3DRadio(tk.Frame):
             if is_dark:
                 # 深色模式
                 if self.is_hovered:
-                    border_color = self.colors['primary_dark']
-                    bg_color = '#2a2a2a'
-                    highlight_color = '#444444'
-                    text_color = self.colors['primary_light']
+                    border_color = '#1a1a1a'
+                    bg_color = '#2c2c2c'
+                    highlight_color = '#3a3a3a'
+                    text_color = self.colors['primary']
                 else:
                     border_color = '#1a1a1a'
                     bg_color = '#2a2a2a'

@@ -160,70 +160,20 @@ class JZTAnalyzerApp:
     def create_widgets(self):
         """创建UI组件 - 左右分栏布局"""
         
-        # 顶部标题区域（统一布局）
-        header_frame = tk.Frame(self.root, bg=self.colors['bg_main'], height=80)
-        header_frame.pack(fill=tk.X)
-        header_frame.pack_propagate(False)
-        
-        # 左侧返回按钮
-        back_btn = tk.Label(
-            header_frame,
-            text="< 返回首页",
-            font=("Microsoft YaHei UI", 10),
-            bg=self.colors['bg_main'],
-            fg=self.colors['text_muted'],
-            cursor="hand2"
-        )
-        back_btn.place(relx=0.0, rely=0.61, x=40, anchor='w')
-        back_btn.bind("<Button-1>", lambda e: self.back_to_launcher())
-        back_btn.bind("<Enter>", lambda e: back_btn.config(fg=self.colors['text_primary']))
-        back_btn.bind("<Leave>", lambda e: back_btn.config(fg=self.colors['text_muted']))
-        
-        # 右侧主题切换按钮
-        theme_btn = ThemeToggleButton(header_frame, command=self.toggle_theme)
-        theme_btn.place(relx=1.0, rely=0.58, x=-40, anchor='e')
-
-        # 右上角帮助按钮（?）
-        help_btn = tk.Label(
-            header_frame,
-            text="?",
-            font=("Microsoft YaHei UI", 13, "bold"),
-            bg=self.colors['bg_main'],
-            fg=self.colors['text_muted'],
-            cursor="hand2"
-        )
-        help_btn.place(relx=1.0, rely=0.61, x=-80, anchor='e')
-        help_btn.bind("<Button-1>", lambda e: self.open_help())
-        help_btn.bind("<Enter>", lambda e: help_btn.config(fg=self.colors['text_primary']))
-        help_btn.bind("<Leave>", lambda e: help_btn.config(fg=self.colors['text_muted']))
-        
-        # 中间标题
-        title_container = tk.Frame(header_frame, bg=self.colors['bg_main'])
-        title_container.place(relx=0.5, rely=0.61, anchor='center')
-        
-        title_label = tk.Label(
-            title_container,
-            text="京准通快车数据分析",
-            font=("Microsoft YaHei UI", 24, "bold"),
-            bg=self.colors['bg_main'],
-            fg=self.colors['text_primary']
-        )
-        title_label.pack()
-        
-        # 主内容区域 - 左右分栏
+        # 主内容区域 - 左右分栋
         main_container = tk.Frame(self.root, bg=self.colors['bg_main'])
-        main_container.pack(fill=tk.BOTH, expand=True, padx=60, pady=35)
+        main_container.pack(fill=tk.BOTH, expand=True, padx=40, pady=35)
         
         # 左侧面板 - 上传和操作
-        left_panel = tk.Frame(main_container, bg=self.colors['bg_main'], width=380)
-        left_panel.pack(side=tk.LEFT, fill=tk.BOTH, padx=(0, 18))
+        left_panel = tk.Frame(main_container, bg=self.colors['bg_main'], width=460)
+        left_panel.pack(side=tk.LEFT, fill=tk.Y, padx=(0, 9))
         left_panel.pack_propagate(False)
         
         self.create_left_panel(left_panel)
         
-        # 右侧面板 - 数据可视化
+        # 右侧面板 - 数据可视化（随窗口缩放）
         right_panel = tk.Frame(main_container, bg=self.colors['bg_main'])
-        right_panel.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
+        right_panel.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=(9, 0))
         
         self.create_right_panel(right_panel)
     
@@ -232,22 +182,14 @@ class JZTAnalyzerApp:
         
         # 文件上传卡片
         upload_card_container, upload_card = self.create_card(parent)
-        upload_card_container.pack(fill=tk.BOTH, expand=True, pady=(0, 15))
+        upload_card_container.pack(fill=tk.BOTH, expand=False, pady=(0, 18))
         
         tk.Label(
             upload_card,
-            text="数据文件",
-            font=("Microsoft YaHei UI", 13, "bold"),
+            text="选择 Excel 文件",
+            font=("Microsoft YaHei UI", 14, "bold"),
             bg=self.colors['bg_card'],
             fg=self.colors['text_primary']
-        ).pack(anchor=tk.W, pady=(0, 12))
-        
-        tk.Label(
-            upload_card,
-            text="上传京准通快车两周数据报表",
-            font=("Microsoft YaHei UI", 9),
-            bg=self.colors['bg_card'],
-            fg=self.colors['text_muted']
         ).pack(anchor=tk.W, pady=(0, 15))
         
         # 文件状态显示
@@ -266,32 +208,32 @@ class JZTAnalyzerApp:
         )
         self.file_label.pack(fill=tk.X)
         
-        # 按钮区域
+        # 按钮区域（自动换行）
         button_frame = tk.Frame(upload_card, bg=self.colors['bg_card'])
         button_frame.pack(fill=tk.X)
         
-        # 选择文件按钮（统一风格，缩小宽度）
+        # 选择文件按钮（统一风格）
         self.select_btn = UnifiedButton(
             button_frame,
             text="选择 Excel 文件",
             command=self.select_file,
             style="primary",
-            width=135,
-            height=38
+            width=130,
+            height=40
         )
-        self.select_btn.pack(side=tk.LEFT, padx=(0, 8))
+        self.select_btn.pack(side=tk.LEFT, padx=(0, 8), pady=(0, 8), fill=tk.NONE)
         
-        # 分析按钮（统一风格）
+        # 开始分析按钮（统一风格）
         self.analyze_btn = UnifiedButton(
             button_frame,
             text="开始分析",
             command=self.start_analysis,
             style="primary",
-            width=95,
-            height=38,
+            width=105,
+            height=40,
             state="disabled"
         )
-        self.analyze_btn.pack(side=tk.LEFT, padx=(0, 8))
+        self.analyze_btn.pack(side=tk.LEFT, padx=(0, 10), pady=(0, 8), fill=tk.NONE)
         
         # 清除按钮（统一风格）
         self.clear_btn = UnifiedButton(
@@ -300,10 +242,10 @@ class JZTAnalyzerApp:
             command=self.clear_file,
             style="secondary",
             width=75,
-            height=38,
+            height=40,
             state="disabled"
         )
-        self.clear_btn.pack(side=tk.LEFT)
+        self.clear_btn.pack(side=tk.LEFT, padx=(0, 8), pady=(0, 8), fill=tk.NONE)
         
         # 周选择卡片
         week_select_card_container, week_select_card = self.create_card(parent)

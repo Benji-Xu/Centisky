@@ -91,57 +91,7 @@ class VideoProcessorApp:
     
     def create_widgets(self):
         """创建界面组件"""
-        # 顶部标题区域（统一布局）
-        header_frame = tk.Frame(self.root, bg=self.colors['bg_main'], height=80)
-        header_frame.pack(fill=tk.X)
-        header_frame.pack_propagate(False)
-        
-        # 左侧返回按钮
-        back_btn = tk.Label(
-            header_frame,
-            text="< 返回首页",
-            font=("Microsoft YaHei UI", 10),
-            bg=self.colors['bg_main'],
-            fg=self.colors['text_muted'],
-            cursor="hand2"
-        )
-        back_btn.place(relx=0.0, rely=0.61, x=40, anchor='w')
-        back_btn.bind("<Button-1>", lambda e: self.back_to_launcher())
-        back_btn.bind("<Enter>", lambda e: back_btn.config(fg=self.colors['text_primary']))
-        back_btn.bind("<Leave>", lambda e: back_btn.config(fg=self.colors['text_muted']))
-        
-        # 右侧主题切换按钮
-        theme_btn = ThemeToggleButton(header_frame, command=self.toggle_theme)
-        theme_btn.place(relx=1.0, rely=0.58, x=-40, anchor='e')
-
-        # 右上角帮助按钮（?）
-        help_btn = tk.Label(
-            header_frame,
-            text="?",
-            font=("Microsoft YaHei UI", 13, "bold"),
-            bg=self.colors['bg_main'],
-            fg=self.colors['text_muted'],
-            cursor="hand2"
-        )
-        help_btn.place(relx=1.0, rely=0.61, x=-80, anchor='e')
-        help_btn.bind("<Button-1>", lambda e: self.open_help())
-        help_btn.bind("<Enter>", lambda e: help_btn.config(fg=self.colors['text_primary']))
-        help_btn.bind("<Leave>", lambda e: help_btn.config(fg=self.colors['text_muted']))
-        
-        # 中间标题
-        title_container = tk.Frame(header_frame, bg=self.colors['bg_main'])
-        title_container.place(relx=0.5, rely=0.61, anchor='center')
-        
-        title_label = tk.Label(
-            title_container,
-            text="视频处理工具",
-            font=("Microsoft YaHei UI", 24, "bold"),
-            bg=self.colors['bg_main'],
-            fg=self.colors['text_primary']
-        )
-        title_label.pack()
-        
-        # FFmpeg状态提示（放在标题下方，不遮挡）
+        # FFmpeg状态提示
         if not self.ffmpeg_available:
             warning_frame = tk.Frame(self.root, bg='#fff3cd')
             warning_frame.pack(fill=tk.X)
@@ -159,7 +109,7 @@ class VideoProcessorApp:
         
         # 主内容区域
         content_frame = tk.Frame(self.root, bg=self.colors['bg_main'])
-        content_frame.pack(fill=tk.BOTH, expand=True, padx=60, pady=35)
+        content_frame.pack(fill=tk.BOTH, expand=True, padx=40, pady=35)
         
         # 左右分栏容器
         columns_container = tk.Frame(content_frame, bg=self.colors['bg_main'])
@@ -168,6 +118,8 @@ class VideoProcessorApp:
         # 左侧区域（2/3宽度）- 操作区
         left_column = tk.Frame(columns_container, bg=self.colors['bg_main'])
         left_column.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(0, 9))
+        left_column.config(width=500)
+        left_column.pack_propagate(False)
         
         # 文件选择卡片
         file_card_container, file_card = self.create_card(left_column)
@@ -241,29 +193,29 @@ class VideoProcessorApp:
         button_frame = tk.Frame(parent, bg=self.colors['bg_card'])
         button_frame.pack(fill=tk.X)
         
-        # 添加视频按钮（Razer 3D拟物化）
+        # 添加视频按钮（统一风格）
         add_btn = UnifiedButton(
             button_frame,
             text="添加视频",
             command=self.add_videos,
             style="primary",
-            width=120,
+            width=100,
             height=40
         )
-        add_btn.pack(side=tk.LEFT, padx=(0, 10))
+        add_btn.pack(side=tk.LEFT, padx=(0, 8), pady=(0, 8))
         
-        # 添加文件夹按钮（Razer 3D拟物化）
+        # 添加文件夹按钮（统一风格）
         add_folder_btn = UnifiedButton(
             button_frame,
             text="添加文件夹",
             command=self.add_folder,
             style="primary",
-            width=120,
+            width=115,
             height=40
         )
-        add_folder_btn.pack(side=tk.LEFT, padx=(0, 10))
+        add_folder_btn.pack(side=tk.LEFT, padx=(0, 8), pady=(0, 8))
         
-        # 清空列表按钮（Razer 3D拟物化）
+        # 清空列表按钮（统一风格）
         clear_btn = UnifiedButton(
             button_frame,
             text="清空列表",
@@ -272,7 +224,7 @@ class VideoProcessorApp:
             width=100,
             height=40
         )
-        clear_btn.pack(side=tk.LEFT)
+        clear_btn.pack(side=tk.LEFT, padx=(0, 8), pady=(0, 8))
     
     def create_flat_radio(self, parent, text, variable, value):
         """创建Razer 3D拟物化单选框"""
@@ -289,29 +241,26 @@ class VideoProcessorApp:
             fg=self.colors['text_primary']
         ).pack(anchor='w', pady=(0, 15))
         
-        # 第一行：处理类型选择
-        row1 = tk.Frame(parent, bg=self.colors['bg_card'])
-        row1.pack(fill=tk.X, pady=(0, 15))
-        
-        type_frame = tk.Frame(row1, bg=self.colors['bg_card'])
-        type_frame.pack(side=tk.LEFT)
-        
+        # 处理类型选择（自动换行）
         tk.Label(
-            type_frame,
+            parent,
             text="处理类型：",
             font=("Microsoft YaHei UI", 10),
             bg=self.colors['bg_card'],
             fg=self.colors['text_primary']
-        ).pack(side=tk.LEFT, padx=(0, 10))
+        ).pack(anchor='w', pady=(0, 8))
+        
+        type_container = tk.Frame(parent, bg=self.colors['bg_card'])
+        type_container.pack(fill=tk.X, pady=(0, 15))
         
         self.operation_var = tk.StringVar(value="rename")
         
-        self.create_flat_radio(type_frame, "标题处理", self.operation_var, "rename").pack(side=tk.LEFT, padx=(0, 8))
-        self.create_flat_radio(type_frame, "视频归类", self.operation_var, "sort").pack(side=tk.LEFT, padx=(0, 8))
-        self.create_flat_radio(type_frame, "视频压缩", self.operation_var, "compress").pack(side=tk.LEFT, padx=(0, 8))
-        self.create_flat_radio(type_frame, "视频分组", self.operation_var, "pack").pack(side=tk.LEFT, padx=(0, 8))
-        self.create_flat_radio(type_frame, "格式转换", self.operation_var, "convert").pack(side=tk.LEFT, padx=(0, 8))
-        self.create_flat_radio(type_frame, "调整尺寸", self.operation_var, "resize").pack(side=tk.LEFT)
+        self.create_flat_radio(type_container, "标题处理", self.operation_var, "rename").pack(side=tk.LEFT, padx=(0, 8))
+        self.create_flat_radio(type_container, "视频归类", self.operation_var, "sort").pack(side=tk.LEFT, padx=(0, 8))
+        self.create_flat_radio(type_container, "视频压缩", self.operation_var, "compress").pack(side=tk.LEFT, padx=(0, 8))
+        self.create_flat_radio(type_container, "视频分组", self.operation_var, "pack").pack(side=tk.LEFT, padx=(0, 8))
+        self.create_flat_radio(type_container, "格式转换", self.operation_var, "convert").pack(side=tk.LEFT, padx=(0, 8))
+        self.create_flat_radio(type_container, "调整尺寸", self.operation_var, "resize").pack(side=tk.LEFT)
         
         # 第二行：格式选择（格式转换时显示）
         self.format_row = tk.Frame(parent, bg=self.colors['bg_card'])

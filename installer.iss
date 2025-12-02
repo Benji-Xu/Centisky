@@ -3,7 +3,7 @@
 ; 支持自动更新检测
 
 #define MyAppName "Centisky"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.1.0"
 #define MyAppPublisher "Benji-Xu"
 #define MyAppURL "https://github.com/Benji-Xu/Centisky"
 #define MyAppExeName "Centisky.exe"

@@ -158,7 +158,16 @@ class IntegratedToolLauncher:
         self.root = root
         self.root.title("Centisky")
         self.root.geometry("1200x700")
-        self.root.resizable(True, True)
+        self.root.resizable(False, False)
+        
+        # 移除最大化按钮（Windows）
+        try:
+            self.root.attributes('-toolwindow', False)
+            # 禁用最大化
+            self.root.maxsize(1200, 700)
+            self.root.minsize(1200, 700)
+        except:
+            pass
         
         # Razer风格配色
         self.colors = get_colors()
@@ -191,16 +200,14 @@ class IntegratedToolLauncher:
                 'status': 'active'
             },
             {
-                'name': '标签箱唛处理',
+                'name': '标签箱唛工具',
                 'icon': '📦',
                 'description': '自动生成标签和箱唛文件',
                 'file': 'tools/label_box/main.py',
-                'class': 'IntegratedApp',
-                'module': 'tools.label_box.main',
                 'status': 'active'
             },
             {
-                'name': '开票信息处理',
+                'name': '发票整理工具',
                 'icon': '📄',
                 'description': '整理开票文件，生成财务导入表格',
                 'file': 'tools/invoice_processor/main.py',
@@ -418,9 +425,6 @@ class IntegratedToolLauncher:
         # 重启应用以应用新主题
         self.root.destroy()
         new_root = tk.Tk()
-        new_root.resizable(False, False)
-        new_root.maxsize(1200, 700)
-        new_root.minsize(1200, 700)
         
         # 强制设置新主题
         import theme
@@ -441,9 +445,6 @@ class IntegratedToolLauncher:
 def main():
     """主函数"""
     root = tk.Tk()
-    root.resizable(False, False)
-    root.maxsize(1200, 700)
-    root.minsize(1200, 700)
     app = IntegratedToolLauncher(root)
     root.mainloop()
 

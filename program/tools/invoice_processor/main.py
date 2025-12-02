@@ -45,61 +45,9 @@ class InvoiceProcessorApp:
     
     def create_widgets(self):
         """创建界面组件"""
-        # 顶部标题区域
-        header_frame = tk.Frame(self.root, bg=self.colors['bg_main'], height=80)
-        header_frame.pack(fill=tk.X)
-        header_frame.pack_propagate(False)
-        
-        # 统一使用相对坐标，让四个控件都在 header 垂直居中（整体略微下移）
-        # 左侧返回按钮
-        back_btn = tk.Label(
-            header_frame,
-            text="< 返回首页",
-            font=("Microsoft YaHei UI", 10),
-            bg=self.colors['bg_main'],
-            fg=self.colors['text_muted'],
-            cursor="hand2"
-        )
-        back_btn.place(relx=0.0, rely=0.61, x=40, anchor='w')
-        back_btn.bind("<Button-1>", lambda e: self.back_to_launcher())
-        back_btn.bind("<Enter>", lambda e: back_btn.config(fg=self.colors['text_primary']))
-        back_btn.bind("<Leave>", lambda e: back_btn.config(fg=self.colors['text_muted']))
-        
-        # 右侧主题切换按钮（自定义日月图标）
-        theme_btn = ThemeToggleButton(header_frame, command=self.toggle_theme)
-        # 稍微上移一点点，让圆形图标看起来与文字居中
-        theme_btn.place(relx=1.0, rely=0.58, x=-40, anchor='e')
-
-        # 右上角帮助按钮（?）
-        help_btn = tk.Label(
-            header_frame,
-            text="?",
-            font=("Microsoft YaHei UI", 13, "bold"),
-            bg=self.colors['bg_main'],
-            fg=self.colors['text_muted'],
-            cursor="hand2"
-        )
-        help_btn.place(relx=1.0, rely=0.61, x=-80, anchor='e')
-        help_btn.bind("<Button-1>", lambda e: self.open_help())
-        help_btn.bind("<Enter>", lambda e: help_btn.config(fg=self.colors['text_primary']))
-        help_btn.bind("<Leave>", lambda e: help_btn.config(fg=self.colors['text_muted']))
-        
-        # 中间标题（真正垂直居中）
-        title_container = tk.Frame(header_frame, bg=self.colors['bg_main'])
-        title_container.place(relx=0.5, rely=0.61, anchor='center')
-        
-        title_label = tk.Label(
-            title_container,
-            text="开票信息处理工具",
-            font=("Microsoft YaHei UI", 24, "bold"),
-            bg=self.colors['bg_main'],
-            fg=self.colors['text_primary']
-        )
-        title_label.pack()
-        
         # 主内容区域
         content_frame = tk.Frame(self.root, bg=self.colors['bg_main'])
-        content_frame.pack(fill=tk.BOTH, expand=True, padx=35, pady=35)
+        content_frame.pack(fill=tk.BOTH, expand=True, padx=40, pady=35)
         
         # 第一张卡片：选择 Excel 文件
         file_card_container, file_card = self.create_card(content_frame)
@@ -156,21 +104,21 @@ class InvoiceProcessorApp:
             text="选择 Excel 文件",
             command=self.select_file,
             style="primary",
-            width=140,
+            width=130,
             height=40
         )
-        select_btn.pack(side=tk.LEFT, padx=(0, 8))
+        select_btn.pack(side=tk.LEFT, padx=(0, 8), pady=(0, 8))
 
         self.clear_btn = UnifiedButton(
             button_row,
             text="清除",
             command=self.clear_file,
             style="secondary",
-            width=80,
+            width=75,
             height=40,
             state="disabled"
         )
-        self.clear_btn.pack(side=tk.RIGHT)
+        self.clear_btn.pack(side=tk.LEFT, padx=(0, 8), pady=(0, 8))
 
     def create_options_section(self, parent):
         """创建处理选项卡片内容"""

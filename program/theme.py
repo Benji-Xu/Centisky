@@ -37,6 +37,11 @@ class RazerTheme:
     RAZER_GREEN_DARK = '#2fb81b'      # 绿色深色
     RAZER_GREEN_PALE = '#e8ffe5'      # 绿色极淡（浅色模式背景）
     
+    # iOS 18风格蓝色系
+    IOS_BLUE = '#007AFF'              # iOS标准蓝
+    IOS_BLUE_LIGHT = '#5AC8FA'        # iOS浅蓝
+    IOS_BLUE_PALE = '#E8F4FF'         # iOS极淡蓝（浅色模式背景）
+    
     def __init__(self, dark_mode=None):
         """
         初始化主题
@@ -53,16 +58,16 @@ class RazerTheme:
             self.colors = self._light_theme()
     
     def _dark_theme(self):
-        """深色模式配色 - Razer风格：黑灰为主，绿为辅"""
+        """深色模式配色 - iOS 18风格：黑灰为主，蓝为辅"""
         return {
             # 主题标识
             'is_dark': True,
-            # 主色调 - Razer绿（辅助色，用于强调）
-            'primary': self.RAZER_GREEN,            # Razer绿
-            'primary_hover': self.RAZER_GREEN_HOVER,# 绿色悬停
-            'primary_light': self.RAZER_GREEN_LIGHT,# 绿色淡色
-            'primary_dark': self.RAZER_GREEN_DARK,  # 绿色深色
-            'primary_glow': '#44d62c80',            # 绿色发光（半透明）
+            # 主色调 - iOS蓝（辅助色，用于强调）
+            'primary': self.IOS_BLUE,               # iOS蓝
+            'primary_hover': self.IOS_BLUE_LIGHT,  # 蓝色悬停
+            'primary_light': self.IOS_BLUE_LIGHT,  # 蓝色淡色
+            'primary_dark': '#0051CC',              # 蓝色深色
+            'primary_glow': '#007AFF80',            # 蓝色发光（半透明）
             
             # 辅助色
             'secondary': '#888888',                 # 中灰色
@@ -130,16 +135,16 @@ class RazerTheme:
         }
     
     def _light_theme(self):
-        """浅色模式配色 - Razer风格：白色为主，绿为辅"""
+        """浅色模式配色 - iOS 18风格：白色为主，蓝为辅"""
         return {
             # 主题标识
             'is_dark': False,
-            # 主色调 - Razer绿（辅助色，用于强调）
-            'primary': self.RAZER_GREEN,            # Razer绿
-            'primary_hover': self.RAZER_GREEN_DARK, # 绿色深色
-            'primary_light': self.RAZER_GREEN_LIGHT,# 绿色淡色
-            'primary_dark': self.RAZER_GREEN_DARK,  # 绿色深色
-            'primary_glow': '#44d62c40',            # 绿色发光（半透明）
+            # 主色调 - iOS蓝（辅助色，用于强调）
+            'primary': self.IOS_BLUE,               # iOS蓝
+            'primary_hover': '#0051CC',             # 蓝色深色
+            'primary_light': self.IOS_BLUE_LIGHT,  # 蓝色淡色
+            'primary_dark': '#0051CC',              # 蓝色深色
+            'primary_glow': '#007AFF40',            # 蓝色发光（半透明）
             
             # 辅助色
             'secondary': '#666666',                 # 深灰色

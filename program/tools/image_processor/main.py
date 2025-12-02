@@ -15,7 +15,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 from theme import get_colors
 from razer_ui import Razer3DCard, Razer3DRadio
 from unified_button import UnifiedButton
-from theme_toggle import ThemeToggleButton
 from folder_multi_select import select_folders
 
 
@@ -56,59 +55,9 @@ class ImageProcessorApp:
         
     def create_widgets(self):
         """创建界面组件"""
-        # 顶部标题区域（统一布局）
-        header_frame = tk.Frame(self.root, bg=self.colors['bg_main'], height=80)
-        header_frame.pack(fill=tk.X)
-        header_frame.pack_propagate(False)
-        
-        # 左侧返回按钮
-        back_btn = tk.Label(
-            header_frame,
-            text="< 返回首页",
-            font=("Microsoft YaHei UI", 10),
-            bg=self.colors['bg_main'],
-            fg=self.colors['text_muted'],
-            cursor="hand2"
-        )
-        back_btn.place(relx=0.0, rely=0.61, x=40, anchor='w')
-        back_btn.bind("<Button-1>", lambda e: self.back_to_launcher())
-        back_btn.bind("<Enter>", lambda e: back_btn.config(fg=self.colors['text_primary']))
-        back_btn.bind("<Leave>", lambda e: back_btn.config(fg=self.colors['text_muted']))
-        
-        # 右侧主题切换按钮
-        theme_btn = ThemeToggleButton(header_frame, command=self.toggle_theme)
-        theme_btn.place(relx=1.0, rely=0.58, x=-40, anchor='e')
-
-        # 右上角帮助按钮（?）
-        help_btn = tk.Label(
-            header_frame,
-            text="?",
-            font=("Microsoft YaHei UI", 13, "bold"),
-            bg=self.colors['bg_main'],
-            fg=self.colors['text_muted'],
-            cursor="hand2"
-        )
-        help_btn.place(relx=1.0, rely=0.61, x=-80, anchor='e')
-        help_btn.bind("<Button-1>", lambda e: self.open_help())
-        help_btn.bind("<Enter>", lambda e: help_btn.config(fg=self.colors['text_primary']))
-        help_btn.bind("<Leave>", lambda e: help_btn.config(fg=self.colors['text_muted']))
-        
-        # 中间标题
-        title_container = tk.Frame(header_frame, bg=self.colors['bg_main'])
-        title_container.place(relx=0.5, rely=0.61, anchor='center')
-        
-        title_label = tk.Label(
-            title_container,
-            text="图片处理工具",
-            font=("Microsoft YaHei UI", 24, "bold"),
-            bg=self.colors['bg_main'],
-            fg=self.colors['text_primary']
-        )
-        title_label.pack()
-        
         # 主内容区域
         content_frame = tk.Frame(self.root, bg=self.colors['bg_main'])
-        content_frame.pack(fill=tk.BOTH, expand=True, padx=60, pady=35)
+        content_frame.pack(fill=tk.BOTH, expand=True, padx=40, pady=35)
         
         # 左右分栏容器
         columns_container = tk.Frame(content_frame, bg=self.colors['bg_main'])
@@ -117,6 +66,8 @@ class ImageProcessorApp:
         # 左侧区域（2/3宽度）- 操作区
         left_column = tk.Frame(columns_container, bg=self.colors['bg_main'])
         left_column.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(0, 9))
+        left_column.config(width=500)
+        left_column.pack_propagate(False)
         
         # 文件选择卡片
         file_card_container, file_card = self.create_card(left_column)
@@ -170,20 +121,20 @@ class ImageProcessorApp:
             text="⚙",
             font=("Microsoft YaHei UI", 12),
             bg=self.colors['bg_card'],
-            fg=self.colors['text_secondary'],
+            fg=self.colors['text_muted'],
             cursor="hand2"
         )
         output_btn_small.pack(side=tk.RIGHT)
         output_btn_small.bind("<Button-1>", lambda e: self.select_output_dir())
         output_btn_small.bind("<Enter>", lambda e: output_btn_small.config(fg=self.colors['primary']))
-        output_btn_small.bind("<Leave>", lambda e: output_btn_small.config(fg=self.colors['text_secondary']))
+        output_btn_small.bind("<Leave>", lambda e: output_btn_small.config(fg=self.colors['text_muted']))
         
         self.output_path_label = tk.Label(
             title_row,
             text="📁 未选择",
             font=("Microsoft YaHei UI", 9),
             bg=self.colors['bg_card'],
-            fg=self.colors['text_secondary']
+            fg=self.colors['text_muted']
         )
         self.output_path_label.pack(side=tk.RIGHT, padx=(0, 5))
         
@@ -198,9 +149,9 @@ class ImageProcessorApp:
             command=self.add_images,
             style="primary",
             width=100,
-            height=36
+            height=40
         )
-        add_btn.pack(side=tk.LEFT, padx=(0, 8))
+        add_btn.pack(side=tk.LEFT, padx=(0, 8), pady=(0, 8))
         
         # 添加文件夹按钮（统一风格）
         add_folder_btn = UnifiedButton(
@@ -208,10 +159,10 @@ class ImageProcessorApp:
             text="添加文件夹",
             command=self.add_folder,
             style="primary",
-            width=110,
-            height=36
+            width=115,
+            height=40
         )
-        add_folder_btn.pack(side=tk.LEFT, padx=(0, 8))
+        add_folder_btn.pack(side=tk.LEFT, padx=(0, 8), pady=(0, 8))
         
         # 清空列表按钮（统一风格）
         clear_btn = UnifiedButton(
@@ -219,10 +170,10 @@ class ImageProcessorApp:
             text="清空列表",
             command=self.clear_images,
             style="secondary",
-            width=90,
-            height=36
+            width=100,
+            height=40
         )
-        clear_btn.pack(side=tk.LEFT)
+        clear_btn.pack(side=tk.LEFT, padx=(0, 8), pady=(0, 8))
         
     def create_flat_radio(self, parent, text, variable, value):
         """创建Razer 3D拟物化单选框"""

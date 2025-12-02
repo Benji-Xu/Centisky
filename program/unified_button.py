@@ -134,7 +134,7 @@ class UnifiedButton(tk.Canvas):
             border_color = '#1a1a1a'
             bg_color = '#252525'  # 比默认略暗
             highlight_color = '#333333'
-            text_color = self.colors['primary']
+            text_color = self.colors['text_primary']
         else:
             # 浅色模式：略暗
             border_color = '#d0d0d0'
@@ -212,7 +212,7 @@ class UnifiedButton(tk.Canvas):
             border_color = '#1a1a1a'
             bg_color = '#252525'  # 比默认略暗
             highlight_color = '#333333'
-            text_color = self.colors['primary']
+            text_color = self.colors['text_primary']
         else:
             # 浅色模式：略暗
             border_color = '#d0d0d0'
